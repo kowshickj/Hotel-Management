@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        input, select {
+            display: block;
+            width: 50%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #totalQty {
+            font-weight: bold;
+            text-align: right; 
+            margin-right: 20%;
+            
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Order Page</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>SNO</th>
+                <th>Product</th>
+                <th>Qty</th>
+            </tr>
+        </thead>
+        <tbody id="orderTableBody">
+            
+        </tbody>
+    </table>
+    <p id="totalQty">Total Qty: 0</p>
+
+    <label for="sno">SNO:</label>
+    <input type="text" id="sno">
+
+    <label for="product">Product:</label>
+    <select id="product">
+        <option value="Mutton Briyani">Mutton Briyani</option>
+        <option value="Chicken Briyani">Chicken Briyani</option>
+        <option value="Chicken 65">Chicken 65</option>
+        <option value="Porata">Porata</option>
+        <option value="Chicken Rice">Chicken Rice</option>
+        <option value="Chicken Noodles">Chicken Noodles</option>
+        <option value="Rice">Rice</option>
+        <option value="Grill Chicken">Grill Chicken</option>
+        <option value="Egg Rice">Egg Rice</option>
+       
+    </select>
+
+    <label for="qty">Qty:</label>
+    <input type="number" id="qty">
+    
+
+    <button onclick="addOrder()">Add Order</button>
+
+
+
+    <button onclick="placeOrder()">Place Order</button>
+
+    <script>
+        function addOrder() {
+            var sno = document.getElementById("sno").value;
+            var product = document.getElementById("product").value;
+            var qty = document.getElementById("qty").value;
+
+            var tableBody = document.getElementById("orderTableBody");
+            var newRow = tableBody.insertRow(tableBody.rows.length);
+
+            var cellSNO = newRow.insertCell(0);
+            var cellProduct = newRow.insertCell(1);
+            var cellQty = newRow.insertCell(2);
+
+            cellSNO.innerHTML = sno;
+            cellProduct.innerHTML = product;
+            cellQty.innerHTML = qty;
+
+            updateTotalQty();
+            clearInputs();
+        }
+
+        function updateTotalQty() {
+            var totalQty = 0;
+            var qtyInputs = document.querySelectorAll("#orderTableBody td:nth-child(3)");
+            qtyInputs.forEach(function(qtyInput) {
+                totalQty += parseInt(qtyInput.textContent) || 0;
+            });
+
+            document.getElementById("totalQty").textContent = "Total Qty: " + totalQty;
+        }
+
+        function clearInputs() {
+            document.getElementById("sno").value = "";
+            document.getElementById("product").value = "";
+            document.getElementById("qty").value = "";
+        }
+
+        function placeOrder() {
+            
+            alert("Order Placed Successfully!");
+        }
+    </script>
+
+</body>
+</html>
